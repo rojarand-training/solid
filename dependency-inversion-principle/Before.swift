@@ -1,60 +1,46 @@
-struct Contact {
-    let name: String
-        let phoneNumber: String
-}
+struct Triangle {
+    let a: Double
+    let b: Double
+    let c: Double
 
-struct ContactsUnavailableError: Error {}
-
-struct LocalSourceOfContacts {
-    func load() throws -> [Contact] {
-        print("Loading from local database ...")
-            if Int.random(in :1...10)%3 == 0 {
-                return [Contact(name: "Robert", phoneNumber: "111-222-333")]
-            } else {
-                throw ContactsUnavailableError()
-            }
+    func perimeter() -> Double {
+        a+b+c
     }
 }
 
-struct NetworkSourceOfContacts {
-    func load() throws -> [Contact] {
-        print("Loading from local network ...")
-            if Int.random(in: 1...10)%3 == 0 {
-                return [Contact(name: "Mike", phoneNumber: "755-444-666")]
-            } else {
-                throw ContactsUnavailableError()
-            }
+struct Rectangle {
+    let a: Double
+    let b: Double
+
+    func perimeter() -> Double {
+        (2.0*a) + (2.0*b)
     }
 }
 
-struct ContactRepository {
-    private let primarySource = LocalSourceOfContacts()
-    private let secondarySource = NetworkSourceOfContacts()
+struct Circle {
+    let r: Double
 
-    func load() -> [Contact] {
-        let result = loadFromPrimarySource()
-        if !result.isEmpty {
-            return result
-        } else {
-            return loadFromSecondarySource()
-        }
-    } 
-
-    private func loadFromPrimarySource() -> [Contact] {
-        do {
-            return try primarySource.load()
-        } catch {
-            return []
-        }
-    }
-
-    private func loadFromSecondarySource() -> [Contact] {
-        do {
-            return try secondarySource.load()
-        } catch {
-            return []
-        }
+    func perimeter() -> Double {
+        2*3.14*r
     }
 }
 
-print(ContactRepository().load())
+struct ShapePerimeterComputer {
+    private let circle1 = Circle(r: 2.0)
+    private let circle2 = Circle(r: 3.0)
+    private let rectangle1 = Rectangle(a: 3.0, b: 2.0)
+    private let rectangle2 = Rectangle(a: 4.0, b: 2.0)
+    private let triangle1 = Triangle(a: 3.0, b: 2.0, c: 4.0)
+    private let triangle2 = Triangle(a: 3.0, b: 3.0, c: 4.0)
+
+    func computePerimeter() -> Double {
+        circle1.perimeter() 
+        + circle2.perimeter() 
+        + rectangle1.perimeter()
+        + rectangle2.perimeter()
+        + triangle1.perimeter()
+        + triangle2.perimeter()
+    }
+}
+
+print("Total perimeter: \(ShapePerimeterComputer().computePerimeter())")

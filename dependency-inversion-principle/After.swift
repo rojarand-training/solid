@@ -1,58 +1,52 @@
-struct Contact {
-    let name: String
-    let phoneNumber: String
+protocol Shape {
+    func perimeter() -> Double
 }
 
-struct ContactsUnavailableError: Error {}
+struct Triangle: Shape {
+    let a: Double
+    let b: Double
+    let c: Double
 
-protocol SourceOfContacts {
-    func load() throws -> [Contact]
-}
-
-struct LocalSourceOfContacts: SourceOfContacts {
-    func load() throws -> [Contact] {
-        print("Loading from local database ...")
-        if Int.random(in :1...10)%3 == 0 {
-            return [Contact(name: "Robert", phoneNumber: "111-222-333")]
-        } else {
-            throw ContactsUnavailableError()
-        }
+    func perimeter() -> Double {
+        a+b+c
     }
 }
 
-struct NetworkSourceOfContacts: SourceOfContacts {
-    func load() throws -> [Contact] {
-        print("Loading from local network ...")
-        if Int.random(in: 1...10)%3 == 0 {
-            return [Contact(name: "Mike", phoneNumber: "755-444-666")]
-        } else {
-            throw ContactsUnavailableError()
-        }
+struct Rectangle: Shape {
+    let a: Double
+    let b: Double
+
+    func perimeter() -> Double {
+        (2.0*a) + (2.0*b)
     }
 }
 
-struct ContactRepository {
-    let primarySource: SourceOfContacts
-    let secondarySource: SourceOfContacts
+struct Circle: Shape {
+    let r: Double
 
-    func load() -> [Contact] {
-        let result = load(from: primarySource)
-        if !result.isEmpty {
-            return result
-        }
-        return load(from: secondarySource)
-    } 
-
-
-    private func load(from source: SourceOfContacts) -> [Contact] {
-        do {
-            return try source.load()
-        } catch {
-            return []
-        }
+    func perimeter() -> Double {
+        2*3.14*r
     }
 }
 
-let repository = ContactRepository(primarySource: LocalSourceOfContacts(), 
-                                secondarySource: NetworkSourceOfContacts())
-print(repository.load())
+struct ShapePerimeterComputer {
+    private let shapes: [Shape]
+
+    init(_ shapes: Shape...) {
+        self.shapes = Array(shapes)
+    }
+
+    func computePerimeter() -> Double {
+        shapes.reduce(0.0) { partialResult, shape in partialResult + shape.perimeter() }
+    }
+}
+
+let shapePerimeterComputer = ShapePerimeterComputer(
+    Circle(r: 2.0), 
+    Circle(r: 3.0), 
+    Rectangle(a: 3.0, b: 2.0),
+    Rectangle(a: 4.0, b: 2.0), 
+    Triangle(a: 3.0, b: 2.0, c: 4.0), 
+    Triangle(a: 3.0, b: 3.0, c: 4.0))
+
+print("Total perimeter: \(shapePerimeterComputer.computePerimeter())")
