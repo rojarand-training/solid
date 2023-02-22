@@ -1,11 +1,11 @@
 
 protocol Shape {
-    func computeArea() -> Double
+    func calculeteArea() -> Double
 }
 
 struct Square: Shape {
     let a: Double
-    func computeArea() -> Double {
+    func calculeteArea() -> Double {
         a * a
     }
 }
@@ -13,19 +13,19 @@ struct Square: Shape {
 struct Rectangle: Shape {
     let a: Double
     let b: Double
-    func computeArea() -> Double {
+    func calculeteArea() -> Double {
         a * b
     }
 }
 
 struct Circle: Shape {
     let r: Double
-    func computeArea() -> Double {
+    func calculeteArea() -> Double {
         3.14 * r * r
     }
 }
 
-struct AreaComputer {
+struct AreaCalculator {
     var shapes: [Shape] = []
     /*
     Issues solved:
@@ -34,14 +34,14 @@ struct AreaComputer {
     3. No casting needed, we use polymorphism here
     4. Less coding needed to achieve the same effect
     */ 
-    func computeEntireArea() -> Double {
-        shapes.reduce(0.0) { sum, shape in sum + shape.computeArea() }
+    func calculeteEntireArea() -> Double {
+        shapes.reduce(0.0) { sum, shape in sum + shape.calculeteArea() }
     }
 }
 
-var areaComputer = AreaComputer()
-areaComputer.shapes.append(Rectangle(a:2.0, b:3.0))
-areaComputer.shapes.append(Square(a:2.0))
-areaComputer.shapes.append(Circle(r:2.0))
+var areaCalculator = AreaCalculator()
+areaCalculator.shapes.append(Rectangle(a:2.0, b:3.0))
+areaCalculator.shapes.append(Square(a:2.0))
+areaCalculator.shapes.append(Circle(r:2.0))
 
-print("Area of shapes: \(areaComputer.computeEntireArea())")
+print("Area of shapes: \(areaCalculator.calculeteEntireArea())")

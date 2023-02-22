@@ -29,19 +29,19 @@ class Square: RectangularShape {
     }
 }
 
-struct RectangleService {
+struct RectangleResizer {
     var rectangles: [RectangularShape] = []
     
-    func resizeSides(by factor: Double) {
+    func resizeSides(by scale: Double) {
         for rectangle in rectangles {
-            rectangle.resizeSides(by: factor)
+            rectangle.resizeSides(by: scale)
         }
     }
 }
 
-var rectangleService = RectangleService()
-rectangleService.rectangles.append(Rectangle(a:2.0, b:3.0))
-rectangleService.rectangles.append(Square(a:2.0))
+var rectangleResizer = RectangleResizer()
+rectangleResizer.rectangles.append(Rectangle(a:2.0, b:3.0))
+rectangleResizer.rectangles.append(Square(a:2.0))
 
-rectangleService.resizeSides(by: 2.0)
+rectangleResizer.resizeSides(by: 2.0)
 

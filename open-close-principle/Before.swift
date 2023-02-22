@@ -1,6 +1,6 @@
 struct Square {
     let a: Double
-    func computeArea() -> Double {
+    func calculeteArea() -> Double {
         a * a
     }
 }
@@ -8,19 +8,19 @@ struct Square {
 struct Rectangle {
     let a: Double
     let b: Double
-    func computeArea() -> Double {
+    func calculeteArea() -> Double {
         a * b
     }
 }
 
 struct Circle {
     let r: Double
-    func computeArea() -> Double {
+    func calculeteArea() -> Double {
         3.14 * r * r
     }
 }
 
-struct AreaComputer {
+struct AreaCalculator {
     var shapes: [Any] = []
     
     /*
@@ -30,16 +30,16 @@ struct AreaComputer {
     3. This antipattern may lead to gigantic switch
     4. Casting is needed, it is a smell because casting may cause crashes
     */
-    func computeEntireArea() -> Double {
+    func calculeteEntireArea() -> Double {
         var area = 0.0
         for shape in shapes {
             switch shape {
                 case let square as Square:
-                    area += square.computeArea()
+                    area += square.calculeteArea()
                 case let rectangle as Rectangle:
-                    area += rectangle.computeArea()
+                    area += rectangle.calculeteArea()
                 case let circle as Circle:
-                    area += circle.computeArea()
+                    area += circle.calculeteArea()
                 default:
                     break
             }
@@ -48,9 +48,9 @@ struct AreaComputer {
     }
 }
 
-var areaComputer = AreaComputer()
-areaComputer.shapes.append(Rectangle(a:2.0, b:3.0))
-areaComputer.shapes.append(Square(a:2.0))
-areaComputer.shapes.append(Circle(r:2.0))
+var areaCalculator = AreaCalculator()
+areaCalculator.shapes.append(Rectangle(a:2.0, b:3.0))
+areaCalculator.shapes.append(Square(a:2.0))
+areaCalculator.shapes.append(Circle(r:2.0))
 
-print("Area of shapes: \(areaComputer.computeEntireArea())")
+print("Area of shapes: \(areaCalculator.calculeteEntireArea())")

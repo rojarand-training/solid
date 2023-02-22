@@ -29,25 +29,25 @@ struct Circle: Shape {
     }
 }
 
-struct ShapePerimeterComputer {
+struct ShapePerimeterCalculator {
     private let shapes: [Shape]
 
     init(_ shapes: Shape...) {
         self.shapes = Array(shapes)
     }
 
-    func computePerimeter() -> Double {
+    func calculetePerimeter() -> Double {
         shapes.reduce(0.0) { partialResult, shape in partialResult + shape.perimeter() }
     }
 
     func output() {
-        print("Hello there, computed perimeter: \(computePerimeter())")
+        print("Hello there, calculeted perimeter: \(calculetePerimeter())")
     }
 }
 
-let shapePerimeterComputer = ShapePerimeterComputer(
+let shapePerimeterCalculator = ShapePerimeterCalculator(
     Circle(r: 2.0), 
     Rectangle(a: 3.0, b: 2.0),
     Triangle(a: 3.0, b: 3.0, c: 4.0))
 
-shapePerimeterComputer.output()
+shapePerimeterCalculator.output()

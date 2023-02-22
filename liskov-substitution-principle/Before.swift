@@ -24,7 +24,7 @@ class Rectangle {
         self.b
     }
 
-    func computeArea() -> Double {
+    func calculeteArea() -> Double {
         a * b
     }
 }
@@ -43,13 +43,13 @@ class Square: Rectangle {
         fatalError("Do not use b side for a square")
     }
 
-    override func computeArea() -> Double {
+    override func calculeteArea() -> Double {
         a * a
     }
 
 }
 
-struct RectangleService {
+struct RectangleResizer {
     var rectangles: [Rectangle] = []
     
     func resizeSides(by scale: Double) {
@@ -60,9 +60,9 @@ struct RectangleService {
     }
 }
 
-var rectangleService = RectangleService()
-rectangleService.rectangles.append(Rectangle(a:2.0, b:3.0))
-rectangleService.rectangles.append(Square(a:2.0))
+var rectangleResizer = RectangleResizer()
+rectangleResizer.rectangles.append(Rectangle(a:2.0, b:3.0))
+rectangleResizer.rectangles.append(Square(a:2.0))
 
-rectangleService.resizeSides(by: 2.0)
+rectangleResizer.resizeSides(by: 2.0)
 
